@@ -10,8 +10,9 @@ class FileTemplateRepository(FileRepository):
     interact with template files stored on the filesystem.
     """
     
-    def __init__(self):
-        pass
+    def __init__(self, templates_folder):
+        self.templates_folder = templates_folder
+        print(self.templates_folder)
         
     def save(self, absolute_file_path):
         """
@@ -44,7 +45,7 @@ class FileTemplateRepository(FileRepository):
         except json.JSONDecodeError as e:
             raise ValueError(f"Invalid JSON in file: {file_path}. Error: {e}")
 
-    def list_files(self, absolute_path):
+    def list_files(self):
         """
         Lists all JSON files in the specified directory with their absolute paths.
 
@@ -52,4 +53,4 @@ class FileTemplateRepository(FileRepository):
         :returns: A list of absolute paths to JSON files in the directory.
         :rtype: list[str]
         """
-        return [str(file.resolve()) for file in Path(absolute_path).glob("*.mc")]
+        return [str(file.resolve()) for file in Path(self.templates_folder).glob("*.mc")]

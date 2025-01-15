@@ -9,7 +9,7 @@ class TestTemplatesFetcherService(unittest.TestCase):
         """
         Prépare les mocks et l'instance de TemplatesFetcherService avant chaque test.
         """
-        self.mock_repository = MagicMock() 
+        self.mock_repository = MagicMock()
         self.fetcher_service = TemplatesFetcherService(templates_repository=self.mock_repository)
 
     def test_list_absolute_templates_paths(self):

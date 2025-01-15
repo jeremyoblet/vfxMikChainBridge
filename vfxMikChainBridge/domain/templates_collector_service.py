@@ -1,13 +1,11 @@
-from vfxMikChainBridge.domain.template_processor_service import TemplateProcessorService
-
-
 class TemplatesCollectorService:
-    def __init__(self):
+    def __init__(self, template_processor_service):
+        self.template_processor_service = template_processor_service
         self._available_templates = []
         self._collected_templates = []
 
     def _create_template_from_path(self, template_path):
-        return TemplateProcessorService().create_template_representation(template_path)
+        return self.template_processor_service.create_template_representation(template_path)
 
     def add_template_to_collection(self,template):
         template_representation = self._create_template_from_path(template)
@@ -20,7 +18,6 @@ class TemplatesCollectorService:
            
     def clear_collection(self):
             self._collected_templates.clear()
-
 
     def add_template_to_available_templates(self,template):
         if template not in self._available_templates:

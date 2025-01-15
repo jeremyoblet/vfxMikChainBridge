@@ -1,23 +1,23 @@
 from pathlib import Path
 import uuid
 
-from vfxMikChainBridge.adapters.file_template_repository import FileTemplateRepository
 from vfxMikChainBridge.domain.entities.global_variable import GlobalVariable
+
 
 class Template:
     
     GLOBAL_VARIABLES_KEY = "environment"
     
-    def __init__(self, absolute_file_path):
+    def __init__(self, absolute_file_path, template_repository):
         self.absolute_file_path = absolute_file_path
+        self.template_repository = template_repository
         self.uid = uuid.uuid4()
         self.name = Path(absolute_file_path).stem
         self.data = self.get_file_template_data()
         self.global_variables = self._add_global_variables()
 
     def get_file_template_data(self):
-        file_template_data_repository = FileTemplateRepository()
-        data = file_template_data_repository.load(self.absolute_file_path)
+        data = self.template_repository.load(self.absolute_file_path)
         return data
         
     def get_global_variables_data(self):
@@ -55,14 +55,3 @@ class Template:
         variables_data = self.get_global_variables_data()
         return  [GlobalVariable(value) for key, value in variables_data.items()]
  
-
-if __name__ == "__main__":
-    test_file_path = '/s/prods/crashtst/_admin/mikchain/templates/auto_publish_test.json'
-    template = Template(test_file_path)
-    
-    variables = template.global_variables
-    
-    for variable in variables:
-        print(variable.name)
-        
-    print(variables)
