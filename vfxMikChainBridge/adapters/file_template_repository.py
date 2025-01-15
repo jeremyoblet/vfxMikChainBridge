@@ -12,7 +12,6 @@ class FileTemplateRepository(FileRepository):
     
     def __init__(self, templates_folder):
         self.templates_folder = templates_folder
-        print(self.templates_folder)
         
     def save(self, absolute_file_path):
         """

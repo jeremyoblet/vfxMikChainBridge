@@ -6,7 +6,10 @@ class APIAdapter(API):
         self.collector_service = services_container.collector_service
         self.executor_service = services_container.executor_service
         self.templates_fetcher = services_container.templates_fetcher
-    
+        
+        self.subprocess_launcher = services_container.subprocess_launcher
+        self.subprocess_runner = services_container.subprocess_runner
+
     def fetch_templates(self):
         return self.templates_fetcher.list_absolute_templates_paths()
             
@@ -38,9 +41,8 @@ class APIAdapter(API):
         return self.collector_service.get_global_variables_from_template_name(template_name)
     
     def execute_templates(self):
-        template_executor = TemplatesExecutorService()
-        template_executor.execute_templates()
+        self.executor_service.collect_templates()
+        self.executor_service.execute_templates()
     
     def launch_new_empty_mikchain(self):
-        mikchain_launcher = SubprocessLauncherAdapter()
-        mikchain_launcher.run("mikchain")
+        self.subprocess_runner.run("mikchain")
