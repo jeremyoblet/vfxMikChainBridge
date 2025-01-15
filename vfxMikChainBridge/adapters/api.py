@@ -1,5 +1,6 @@
-from typing_extensions import Self
 from vfxMikChainBridge.domain.ports.api import API
+
+from vfxMikChainBridge.adapters.subprocess_launcher import SubprocessLauncherAdapter
 
 from vfxMikChainBridge.domain.template_processor_service import TemplateProcessorService
 from vfxMikChainBridge.domain.templates_collector_service import TemplatesCollectorService
@@ -40,12 +41,19 @@ class APIAdapter(API):
     def get_collected_templates(self):
         return self.templates_collector.get_collected_templates()
     
-    def execute_all_templates(self):
-        pass
+    def get_collected_template_by_name(self, template_name):
+        return self.templates_collector.get_collected_template_by_name(template_name)
+    
+    def get_global_variables_from_template_name(self, template_name):
+        return self.templates_collector.get_global_variables_from_template_name(template_name)
+    
+    def execute_templates(self):
+        template_executor = TemplatesExecutorService()
+        template_executor.execute_templates()
     
     def launch_new_empty_mikchain(self):
-        pass
-
+        mikchain_launcher = SubprocessLauncherAdapter()
+        mikchain_launcher.run("mikchain")
 
 if __name__ == "__main__":
     try:
@@ -67,13 +75,26 @@ if __name__ == "__main__":
         print(f"collected templates : {collected_templates}")
 
         templates_collector.add_template_to_collection(available_templates[0])
+        templates_collector.add_template_to_collection(available_templates[1])
+
+
         print(f"collected templates after add : {collected_templates}")
 
-        api.clear_collection()
-        api.clear_available_templates()
+        api.execute_templates(collected_templates)
+
+        # api.clear_collection()
+        # api.clear_available_templates()
         
-        print(f"collected templates after clear : {collected_templates}")
-        print(f"available templates after clear : {available_templates}")
+        # print(f"collected templates after clear : {collected_templates}")
+        # print(f"available templates after clear : {available_templates}")
+        
+        # specific_template = templates_collector.get_collected_template_by_name('auto_publish_test')
+        # print(specific_template)
+        # print(specific_template.name)
+        
+        # vars = templates_collector.get_global_variables_from_template_name('auto_publish_test')
+        # print(vars)
+        
     except ValueError as e:
         print(e)
             

@@ -22,14 +22,27 @@ class FileTemplateRepository(FileRepository):
         """
         pass
 
-    def load(self, absolute_file_path):
+    def load(self, file_path):
         """
-        This method is a placeholder for loading a template file content.
-        Currently, saving templates is not required.
+        Loads the JSON data from the specified file.
 
-        :param absolute_file_path: The absolute path of the file to load.
+        :param file_path: The absolute path to the JSON file.
+        :type file_path: str
+        :returns: The parsed JSON data as a dictionary.
+        :rtype: dict
+        :raises FileNotFoundError: If the file does not exist.
+        :raises ValueError: If the file content is not valid JSON.
         """
-        pass
+        file = Path(file_path)
+
+        if not file.is_file():
+            raise FileNotFoundError(f"File not found: {file_path}")
+
+        try:
+            with file.open("r") as f:
+                return json.load(f)
+        except json.JSONDecodeError as e:
+            raise ValueError(f"Invalid JSON in file: {file_path}. Error: {e}")
 
     def list_files(self, absolute_path):
         """
@@ -39,4 +52,4 @@ class FileTemplateRepository(FileRepository):
         :returns: A list of absolute paths to JSON files in the directory.
         :rtype: list[str]
         """
-        return [str(file.resolve()) for file in Path(absolute_path).glob("*.json")]
+        return [str(file.resolve()) for file in Path(absolute_path).glob("*.mc")]

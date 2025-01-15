@@ -32,7 +32,7 @@ class API(ABC):
         pass
     
     @abstractmethod
-    def execute_all_templates(self):
+    def execute_templates(self, templates):
         pass
     
     @abstractmethod

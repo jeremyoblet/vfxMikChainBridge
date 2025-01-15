@@ -1,7 +1,7 @@
 from pathlib import Path
 
-from PySide2.QtWidgets import QPushButton, QVBoxLayout, QHBoxLayout, QWidget, QLabel, QComboBox, QListWidget, QAbstractItemView, QSpacerItem, QSizePolicy, QListWidget, QListWidgetItem, QSpacerItem
-from PySide2.QtCore import Qt, Signal, Slot
+from PySide2.QtWidgets import QPushButton, QVBoxLayout, QHBoxLayout, QWidget, QLabel, QComboBox, QListWidget, QAbstractItemView, QListWidget, QListWidgetItem
+from PySide2.QtCore import Qt
 
 from vfxMikChainBridge.ui.components.template_widget import TemplateWidget
 
@@ -57,15 +57,6 @@ class TemplateCollectorWidget(QWidget):
         self.v_layout_main.addWidget(self.list_widget_steps)
         
         layout.addWidget(self)
-        
-
-        # self.adjust_size()
-
-        
-
-
-    @Slot()
-    def adjust_size(self):
         """Adjust the size of the main window and its central widget."""
         self.adjustSize()
         
@@ -83,13 +74,13 @@ class TemplateCollectorWidget(QWidget):
         print(f"Added template to backend: {selected_template_name}")
         print("Collected templates in backend:", self.api.get_collected_templates())
 
-        template_widget = TemplateWidget(selected_template_name)
+        template_widget = TemplateWidget(self.api, selected_template_name)
+
         list_item = QListWidgetItem(self.list_widget_steps)
         list_item.setSizeHint(template_widget.sizeHint())
         self.list_widget_steps.addItem(list_item)
         self.list_widget_steps.setItemWidget(list_item, template_widget)
         print(f"Added template to UI: {selected_template_name}")
-
 
     def clear_collected_templates(self):
         """

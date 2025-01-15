@@ -3,7 +3,7 @@ import os
 from vfxMikChainBridge.domain.utils import get_prod_root_env_variable
 
 PROD_ROOT = get_prod_root_env_variable()
-TEMPLATES_FOLDER = os.path.join(PROD_ROOT, "_admin/mikchain/templates/")
+TEMPLATES_FOLDER = os.path.join(PROD_ROOT, "_admin/mikchain/templates/new_publish/executables")
 
 if __name__ == "__main__":
     print('PROD_ROOT: ', PROD_ROOT)

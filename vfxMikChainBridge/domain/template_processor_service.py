@@ -1,7 +1,5 @@
-from pathlib import Path
-import uuid
-
 from vfxMikChainBridge.domain.entities.template import Template
+
 
 class TemplateProcessorService:
     
@@ -10,9 +8,7 @@ class TemplateProcessorService:
         """
         Create a representation of a template based on its file type.
         """
-        uid = uuid.uuid4()
-        name = Path(absolute_file_path).stem
-        template = Template(uid, name, absolute_file_path)
+        template = Template(absolute_file_path)
         return template
     
     @staticmethod
