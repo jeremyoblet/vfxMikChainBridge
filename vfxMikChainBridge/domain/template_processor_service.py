@@ -39,22 +39,3 @@ class TemplateProcessorService:
                         if result is not None:
                             return result
         return None
-    
-# if __name__ == "__main__":
-    
-#     from vfxMikChainBridge.adapters.file_template_repository import FileTemplateRepository
-    
-#     # Initialisation
-#     template_path = "/s/prods/crashtst/_admin/mikchain/templates/new_publish/executables/make_artefact.mc"
-#     template = Template(template_path)
-#     template_repository = FileTemplateRepository(template_path)
-#     processor = TemplateProcessorService(template_repository)
-
-#     # Chargement et traitement
-#     processor.load_template_data(template)
-#     template.global_variables = processor.extract_global_variables(template)
-
-#     print(template.name)
-#     print(template.uid)
-#     print(template.absolute_file_path)
-#     print(template.data)
