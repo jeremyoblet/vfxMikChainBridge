@@ -8,6 +8,7 @@ from vfxMikChainBridge.adapters.api import APIAdapter
 from vfxMikChainBridge.infrastructure.services_container import ServicesContainer
 from vfxMikChainBridge.infrastructure.constants import MCEXEC, TEMPLATES_FOLDER
 
+
 def run():
     app = QApplication(sys.argv)
     app_window = QMainWindow()
