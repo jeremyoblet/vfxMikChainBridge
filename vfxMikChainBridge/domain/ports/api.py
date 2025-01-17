@@ -8,7 +8,7 @@ class API(ABC):
         pass
     
     @abstractmethod
-    def add_template_in_collection(self, template):
+    def add_template_in_collection(self, template_path):
         pass
     
     @abstractmethod
@@ -32,7 +32,7 @@ class API(ABC):
         pass
     
     @abstractmethod
-    def execute_templates(self, templates):
+    def execute_templates(self):
         pass
     
     @abstractmethod

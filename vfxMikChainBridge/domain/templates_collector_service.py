@@ -5,7 +5,10 @@ class TemplatesCollectorService:
         self._collected_templates = []
 
     def _create_template_from_path(self, template_path):
-        return self.template_processor_service.create_template_representation(template_path)
+        new_template =  self.template_processor_service.create_template_representation(template_path)
+        self.template_processor_service.load_template_data(new_template)
+        new_template.global_variables = self.template_processor_service.extract_global_variables(new_template)
+        return new_template
 
     def add_template_to_collection(self,template):
         template_representation = self._create_template_from_path(template)
@@ -43,7 +46,6 @@ class TemplatesCollectorService:
     
     def get_global_variables_from_template_name(self, template_name):
         template = self.get_collected_template_by_name(template_name)
-
         return template.global_variables
         
     def set_available_templates(self, templates):

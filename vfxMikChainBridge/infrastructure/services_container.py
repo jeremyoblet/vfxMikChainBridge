@@ -1,4 +1,3 @@
-from ast import Sub
 from vfxMikChainBridge.domain.template_processor_service import TemplateProcessorService
 from vfxMikChainBridge.domain.templates_collector_service import TemplatesCollectorService
 from vfxMikChainBridge.domain.templates_executor_service import TemplatesExecutorService
