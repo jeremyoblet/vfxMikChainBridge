@@ -1,15 +1,3 @@
-# -*- coding: utf-8 -*-
-#
-# - package.py -
-#
-# Copyright © Mikros
-#             All rights reserved
-#
-# This file is part of the package *vfxRevancher*
-#
-# *vfxRevancher* can not be copied and / or distributed without
-# the express permission of Mikros.
-
 name = "vfxMikChainBridge"
 version = "0.0.1"
 
